@@ -1,0 +1,38 @@
+%main.container.general-main-wrap
+  - if @order_items.any?
+    %h1.general-title-margin= t('cart')
+    = render "mobile_items"
+    = render "items"
+    .general-order-wrap
+      .row
+        .col-sm-4
+          = form_tag cart_path, method: :put do
+            .input-group.general-input-group
+              %label.font-weight-light= t('coupon_code')
+              = text_field_tag "coupon_code", "", placeholder: t('coupon_code'), class: "form-control mb-30"
+              %div
+                = submit_tag t('update_cart'), class: "btn btn-primary mb-15 res-block"
+        .col-sm-8
+          .res-mr-200.text-center.general-text-right
+            %p.in-gold-500.font-18= t('summary')
+            %table.general-summary-table.general-summary-table-right.general-text-right
+              %tr
+                %td
+                  %p.font-16= t('subtotal') + ":"
+                %td
+                  %p.font-16= shifting_price_to_currency(@order.subtotal)
+              %tr
+                %td
+                  %p.font-16= t('coupon') + ":"
+                %td
+                  %p.font-16= shifting_price_to_currency(@order.coupon)
+              %tr
+                %td
+                  %strong.font-18= t('total') + ":"
+                %td
+                  %strong.font-18= shifting_price_to_currency(@order.total_price)
+            = button_to t('checkout'), checkouts_path, method: :get, class: "btn btn-default mb-20 visible-xs-inline-block"
+    = button_to t('checkout'), checkouts_path, method: :get, class: "btn btn-default mb-20 hidden-xs center-block"
+  - else
+    %h1.text-center= t('empty_cart')
+    %h1.text-center= link_to t('go_shop'), main_app.category_path(1), class: 'in-gold-500'

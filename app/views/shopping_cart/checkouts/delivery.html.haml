@@ -1,0 +1,14 @@
+%main.container.general-main-wrap
+  = render "checkout_status"
+  %h3.general-subtitle= t('delivery')
+  = form_tag(wizard_path, method: :put) do
+    .visible-xs
+      = render "mobile_delivery_list"
+    .hidden-xs.mb-res-50
+      = render "delivery_list"
+    .general-text-align
+      %p.in-gold-500.font-18= t('summary')
+      %table.general-summary-table
+        =render "summary"
+    .text-center
+      = submit_tag t('save_and_continue'), class: "btn btn-default center-block mb-20"

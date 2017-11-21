@@ -1,0 +1,29 @@
+%main.container
+  = render "checkout_status"
+  = form_tag(wizard_path, method: :put) do
+    = hidden_field_tag "billing[address_type]", "billing"
+    = hidden_field_tag "shipping[address_type]", "shipping"
+    .hidden-xs.hidden-sm
+      .row
+        .col-md-5
+          %h3.general-subtitle= t('billing')
+          %p.general-info-text= t('required_fields')
+        .col-md-5.col-md-offset-1
+          %h3.general-subtitle= t('shipping')
+    .row
+      = render "billing_form"
+      = render "shipping_form"
+    .general-text-align.mb-60
+      %p.in-gold-500.font-18= t('summary')
+      %table.general-summary-table
+        %tr
+          %td
+            %p.font-16= t('item_total') + ":"
+          %td
+            %p.font-16= shifting_price_to_currency(@order.subtotal)
+        %tr
+          %td
+            %p.font-16= t('total') + ":"
+          %td
+            %p.font-16= shifting_price_to_currency(@order.total_price)
+      = submit_tag t('save_and_continue'), method: :put, class: "btn btn-default center-block mb-20"

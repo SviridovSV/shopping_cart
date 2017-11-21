@@ -1,0 +1,14 @@
+- @order.order_items.each do |item|
+  %tr
+    %td
+      .general-img-wrap-table
+        = image_tag item.book.picture.thumb, class: 'cart-img-shadow width-full', alt: "design-book"
+    %td
+      %p.general-title= link_to "#{item.book.title}", main_app.book_path(item.book)
+      %p.in-grey-600.font-weight-light= truncate(item.book.description, length: 150)
+    %td
+      %span.font-16.in-gold-500= shifting_price_to_currency(item.book.price)
+    %td
+      %span.ml-30= item.quantity
+    %td
+      %span.font-16.in-gold-500= shifting_price_to_currency(item.total_price)

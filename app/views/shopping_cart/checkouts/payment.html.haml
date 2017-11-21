@@ -1,0 +1,31 @@
+%main.container.mb-res-50
+  = render "checkout_status"
+  %h3.general-subtitle= t("credit_card")
+  = form_for(ShoppingCart::CreditCard.new, url: wizard_path, method: :put, class: "max-600 mb-80") do |f|
+    .form-group{class: "#{"has-error" if card_has_error?(:card_number)}"}
+      %label.control-label.font-weight-light{for: "cardNumber"}= t("card_number")
+      = f.text_field :card_number, value: card_saved_value(:card_number), placeholder: t("card_number"), class: "form-control", id: "cardNumber"
+      %span.help-block= card_error_message(:card_number)
+    .row
+      .col-sm-6
+        .form-group{class: "#{"has-error" if card_has_error?(:name_on_card)}"}
+          %label.control-label.font-weight-light{for: "cardName"}= t("name_on_card")
+          = f.text_field :name_on_card, value: card_saved_value(:name_on_card), placeholder: t("name_on_card"), class: "form-control", id: "cardName"
+          %span.help-block= card_error_message(:name_on_card)
+      .col-sm-3
+        .form-group{class: "#{"has-error" if card_has_error?(:mm_yy)}"}
+          %label.control-label.font-weight-light{for: "firstName"}= t("mm_yy")
+          = f.text_field :mm_yy, value: card_saved_value(:mm_yy), placeholder: t("mm_yy"), maxlength: "5", class: "form-control", id: "firstName"
+          %span.help-block= card_error_message(:mm_yy)
+      .col-sm-3
+        .form-group.relative{class: "#{"has-error" if card_has_error?(:cvv)}"}
+          %label.control-label.font-weight-light{for: "cvv"}= t('cvv')
+          = f.text_field :cvv, value: card_saved_value(:cvv), placeholder: t('cvv'), maxlength: "4", class: "form-control", id: "cvv"
+          %i.fa.fa-question-circle.general-form-help.font-18{title: t('cvv_hint')}
+          %span.help-block= card_error_message(:cvv)
+    .general-text-align
+      %p.in-gold-500.font-18= t('summary')
+      %table.general-summary-table
+        = render "summary"
+    .text-center
+      = f.submit t('save_and_continue'), class: "btn btn-default center-block mb-80"

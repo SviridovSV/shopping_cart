@@ -1,0 +1,32 @@
+.col-md-5.mb-40
+  .visible-xs.visible-sm
+    %h3.general-subtitle= t("billing")
+    %p.general-info-text= t('required_fields')
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :first_name)}"}
+    %label.control-label.font-weight-light{for: "firstName"}= t('first_name')
+    = text_field_tag "billing[first_name]", "#{address_saved_value("billing", :first_name)}", placeholder: t('first_name'), id: "firstName", class: "form-control"
+    %span.help-block= address_error_message("billing", :first_name)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :last_name)}"}
+    %label.control-label.font-weight-light{for: "lastName"}= t('last_name')
+    = text_field_tag "billing[last_name]", "#{address_saved_value("billing", :last_name)}", placeholder: t('last_name'), id: "lastName", class: "form-control"
+    %span.help-block= address_error_message("billing", :last_name)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :address_name)}"}
+    %label.control-label.font-weight-light{for: "address"}= t('address')
+    = text_field_tag "billing[address_name]", "#{address_saved_value("billing", :address_name)}", placeholder: t('address'), id: "address", class: "form-control"
+    %span.help-block= address_error_message("billing", :address_name)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :city)}"}
+    %label.control-label.font-weight-light{for: "city"}= t('city')
+    = text_field_tag "billing[city]", "#{address_saved_value("billing", :city)}", id: "city", placeholder: t('city'), class: "form-control"
+    %span.help-block= address_error_message("billing", :city)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :zip)}"}
+    %label.control-label.font-weight-light{for: "zip"}= t('zip')
+    = text_field_tag "billing[zip]", "#{address_saved_value("billing",  :zip)}", id: "zip", placeholder: t('zip'), class: "form-control"
+    %span.help-block= address_error_message("billing", :zip)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :сountry)}"}
+    %label.control-label.font-weight-light{for: "сountry"}= t('country')
+    = select_tag "billing[country]", options_for_select(["Ukraine", "USA", "Zimbabwe"], address_saved_value("billing", :сountry)), id: "country", class: "form-control"
+    %span.help-block= address_error_message("billing", :сountr)
+  .form-group{class: "#{"has-error" if address_has_error?("billing", :phone)}"}
+    %label.control-label.font-weight-light{for: "phone"}= t('phone')
+    = text_field_tag "billing[phone]", "#{address_saved_value("billing", :phone)}", placeholder: t('phone_placeholder'), id: "phone", class: "form-control"
+    %span.help-block= address_error_message("billing", :phone)

@@ -1,0 +1,35 @@
+.hidden-xs
+  %table.table.table-hover
+    %tr.no-hover
+      %th.col-pic.pl-0
+        %span.in-grey-600= t('product')
+      %th.col-title
+      %th.col-price
+        %span.in-grey-600= t('price')
+      %th.col-quantity
+        %span.in-grey-600= t('quantity')
+      %th.col-total
+        %span.in-grey-600= t('subtotal')
+      %th.col-close
+    - @order_items.each do |item|
+      %tr
+        %td
+          .general-img-wrap-table
+            = image_tag item.book.picture.thumb, class: 'cart-img-shadow pull-left width-full', alt: "design-book"
+        %td
+          %p.general-title
+            = link_to "#{item.book.title}", main_app.book_path(item.book)
+        %td
+          %span.font-16.in-gold-500= shifting_price_to_currency(item.book.price)
+        %td
+          .input-group
+            = link_to order_item_path(item, quantity: "#{item.quantity - 1}", operation: :minus), method: :patch, class: "#{'not-active' if item.quantity <= 1} input-link" do
+              %i.fa.fa-minus.line-height-40
+            %input.form-control.quantity-input{type: "text", value: "#{item.quantity}", disabled: true}
+            = link_to order_item_path(item, quantity: "#{item.quantity + 1}"), method: :patch, class: "input-link" do
+              %i.fa.fa-plus.line-height-40
+        %td
+          %span.font-16.in-gold-500= shifting_price_to_currency(item.total_price)
+        %td
+          = link_to item, method: :delete, data: {confirm: t('sure?')}, class: "close general-cart-close", 'aria-label': 'Close' do
+            %span{'aria-hidden': "true"} &times;

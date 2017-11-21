@@ -1,0 +1,23 @@
+%main.container.general-main-wrap
+  - if current_user.orders.any?
+    %h1.mt-0.mb-25= t('my_orders')
+    = render "sort_dropdown"
+    .visible-xs
+      = render "mobile_orders"
+    .hidden-xs.mb-res-50
+      %table.table.table-hover
+        %thead
+          %tr
+            %th
+              %span.in-grey-600= t('number')
+            %th
+              %span.in-grey-600= t('completed_at')
+            %th
+              %span.in-grey-600= t('status')
+            %th
+              %span.in-grey-600= t('total')
+        %tbody
+          = render "orders"
+  - else
+    %h1.text-center= t('dont_have_orders')
+    %h1.text-center= link_to t('go_shop'), main_app.category_path(1), class: 'in-gold-500'
