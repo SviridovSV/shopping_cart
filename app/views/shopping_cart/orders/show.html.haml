@@ -1,0 +1,40 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= "Order " + track_number(@order)
+  .row.mb-20
+    = (render partial: "shopping_cart/checkouts/address_info", locals: {type: "shipping", edit: false}) if @order.get_address("shipping")
+    = (render partial: "shopping_cart/checkouts/address_info", locals: {type: "billing", edit: false}) if @order.get_address("billing")
+    - unless @order.delivery.nil?
+      .col-sm-3
+        %h3.general-subtitle.mt-0= t('shipments')
+        %p.general-address
+          = @order.delivery.name
+    - unless @order.credit_card.nil?
+      .col-sm-3
+        %h3.general-subtitle.mt-0= t('payment_info')
+        %p.general-address
+          = "**** **** **** #{@order.credit_card.card_number[-4..-1]}"
+          %br
+          = @order.credit_card.try(:mm_yy)
+  .visible-xs
+    = render "shopping_cart/checkouts/mobile_items"
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600= t('product')
+          %th.col-method
+          %th
+            %span.in-grey-600= t('price')
+          %th
+            %span.in-grey-600= t('quantity')
+          %th
+            %span.in-grey-600= t('total')
+      %tbody
+        = render "shopping_cart/checkouts/items"
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render "shopping_cart/checkouts/summary"
+    .text-center
+      = (link_to t('continue_shopping'), continue_shopping_order_path(@order.id), class: "btn btn-default mb-20") if @order.state == "in_progress"

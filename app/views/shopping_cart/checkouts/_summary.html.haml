@@ -1,0 +1,15 @@
+%tr
+  %td
+    %p.font-16= t('item_total') + ":"
+  %td
+    %p.font-16= shifting_price_to_currency(@order.subtotal)
+%tr
+  %td
+    %p.font-16 Shipping:
+  %td
+    %p.font-16= shifting_price_to_currency(@order.delivery.price) if @order.delivery.present?
+%tr
+  %td
+    %strong.font-18= t('total') + ":"
+  %td
+    %strong.font-18= shifting_price_to_currency(@order.total_price)

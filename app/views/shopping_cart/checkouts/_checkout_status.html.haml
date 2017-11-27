@@ -1,0 +1,9 @@
+%h1.general-title-margin= t('checkout')
+%ul.steps.list-inline
+  - wizard_steps.each_with_index do |stepp, index|
+    %li.step-divider{style: "display:#{index == 0 ? 'none' : ''}"}
+    %li.step{class: "#{"active" if past_step?(stepp) || stepp == step}"}
+      %span.step-number
+        = (index + 1) unless step == :complete
+        %i.fa.fa-check.step-icon{style: "display:#{step == :complete ? '' : 'none'}"}
+      %span.step-text.hidden-xs= stepp.to_s.capitalize

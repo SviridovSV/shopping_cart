@@ -1,0 +1,13 @@
+.col-sm-3
+  %h3.general-subtitle= t(type)
+  %p.general-address
+    = customer_name(type)
+    = (link_to t('edit'), wizard_path(:address, done: true), class: "general-edit") if edit
+    %br
+    = @order.get_address(type).address_name
+    %br
+    = @order.get_address(type).city
+    %br
+    = @order.get_address(type).country
+    %br
+    = "Phone " + @order.get_address(type).phone

@@ -1,0 +1,40 @@
+%main.container.general-main-wrap
+  = render "checkout_status"
+  .row.mb-20
+    = render partial: "address_info", locals: {type: "shipping", edit: true}
+    = render partial: "address_info", locals: {type: "billing", edit: true}
+    .col-sm-3
+      %h3.general-subtitle= t('shipments')
+      %p.general-address
+        = @order.delivery.name
+        = link_to t('edit'), wizard_path(:delivery, done: true), class: "general-edit"
+    .col-sm-3
+      %h3.general-subtitle= t('payment_info')
+      %p.general-address
+        = "**** **** **** #{@order.credit_card.card_number[-4..-1]}"
+        = link_to t('edit'), wizard_path(:payment, done: true), class: "general-edit"
+        %br
+        = @order.credit_card.mm_yy
+  .visible-xs
+    = render "mobile_items"
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600= t('product')
+          %th.col-method
+          %th
+            %span.in-grey-600= t('price')
+          %th
+            %span.in-grey-600= t('quantity')
+          %th
+            %span.in-grey-600= t('total')
+      %tbody
+        = render "items"
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render "summary"
+  .text-center
+    = link_to t('place_order'), wizard_path, method: :put, class: "btn btn-default mb-20"

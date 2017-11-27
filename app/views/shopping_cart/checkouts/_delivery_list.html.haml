@@ -1,0 +1,22 @@
+%table.table.table-hover
+  %thead
+    %tr
+      %th.col-method
+        %span.in-grey-600.ml-40= t('method')
+      %th
+        %span.in-grey-600= t('days')
+      %th
+        %span.in-grey-600= t('price')
+  %tbody
+    - ShoppingCart::Delivery.all.each do |delivery|
+      %tr
+        %td
+          .form-group.radio.mt-0.mb-0
+            %label.font-16.font-weight-light.pl-0
+              = radio_button_tag "delivery", delivery.id, checked_delivery?(delivery.id), hidden: "true", class: "radio-input"
+              %span.radio-icon
+              %span.radio-text= delivery.name
+        %td
+          %span= "#{delivery.min_day } to #{delivery.max_day } days"
+        %td
+          %span.font-16.in-gold-500= shifting_price_to_currency(delivery.price)

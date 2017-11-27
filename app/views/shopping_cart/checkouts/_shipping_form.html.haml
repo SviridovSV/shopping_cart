@@ -1,0 +1,38 @@
+.col-md-5.col-md-offset-1.mb-60
+  #shipping_form{style: "display:#{use_billing_address? ? 'none' : ''}"}
+    .visible-xs.visible-sm
+      %h3.general-subtitle= t("shipping")
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :first_name)}"}
+      %label.control-label.font-weight-light{for: "firstName"}= t('first_name')
+      = text_field_tag "shipping[first_name]", "#{address_saved_value("shipping", :first_name)}", placeholder: t('first_name'), id: "firstName", class: "form-control"
+      %span.help-block= address_error_message("shipping", :first_name)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :last_name)}"}
+      %label.control-label.font-weight-light{for: "lastName"}= t('last_name')
+      = text_field_tag "shipping[last_name]", "#{address_saved_value("shipping", :last_name)}", placeholder: t('last_name'), id: "lastName", class: "form-control"
+      %span.help-block= address_error_message("shipping", :last_name)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :address_name)}"}
+      %label.control-label.font-weight-light{for: "address"}= t('address')
+      = text_field_tag "shipping[address_name]", "#{address_saved_value("shipping", :address_name)}", placeholder: t('address'), id: "address", class: "form-control"
+      %span.help-block= address_error_message("shipping", :address_name)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :city)}"}
+      %label.control-label.font-weight-light{for: "city"}= t('city')
+      = text_field_tag "shipping[city]", "#{address_saved_value("shipping", :city)}", id: "city", placeholder: t('city'), class: "form-control"
+      %span.help-block= address_error_message("shipping", :city)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :zip)}"}
+      %label.control-label.font-weight-light{for: "zip"}= t('zip')
+      = text_field_tag "shipping[zip]", "#{address_saved_value("shipping", :zip)}", id: "zip", placeholder: t('zip'), class: "form-control"
+      %span.help-block= address_error_message("shipping", :zip)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :сountry)}"}
+      %label.control-label.font-weight-light{for: "сountry"}= t('country')
+      = select_tag "shipping[country]", options_for_select(["Ukraine", "USA", "Zimbabwe"], address_saved_value("shipping", :сountry)), id: "country", class: "form-control"
+      %span.help-block= address_error_message("shipping", :сountry)
+    .form-group{class: "#{"has-error" if address_has_error?("shipping", :phone)}"}
+      %label.control-label.font-weight-light{for: "phone"}= t('phone')
+      = text_field_tag "shipping[phone]", "#{address_saved_value("shipping", :phone)}", placeholder: t('phone_placeholder'), id: "phone", class: "form-control"
+      %span.help-block= address_error_message("shipping", :phone)
+  .form-group.checkbox
+    %label.font-weight-light.pl-0
+      = check_box_tag "billing[address_type]", "both", use_billing_address?, class: "checkbox-input", hidden: "true", id: "check_clone"
+      %span.checkbox-icon
+        %i.fa.fa-check
+      %span.checkbox-text= t('use_billing')

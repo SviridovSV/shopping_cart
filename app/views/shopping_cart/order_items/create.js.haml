@@ -1,0 +1,7 @@
+- if @order.errors.any? || @order_item.errors.any?
+  :plain
+    alert("#{@order_item.errors.full_messages.first}");
+- else
+  :plain
+    $(".shop-quantity").html("#{items_in_cart}");
+    alert('Item was successfully added to cart.');

@@ -1,0 +1,46 @@
+%main.container.general-main-wrap
+  = render "checkout_status"
+  .text-center.mb-40
+    %h3.general-subtitle= t('thanks')
+    %p.font-weight-light= t('order_confirmation') + @order.user.email
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= "Order #" + track_number(@order)
+        %p.general-address.mb-30= @order.created_at.strftime("%m/%d/%Y")
+      %p.general-address
+        = customer_name('shipping')
+        %br
+        = @order.get_address('shipping').address_name
+        %br
+        = @order.get_address('shipping').city
+        %br
+        = @order.get_address('shipping').country
+        %br
+        = "Phone " + @order.get_address('shipping').phone
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= "Order #" + track_number(@order)
+      %p.general-address.mb-30= @order.created_at.strftime("%m/%d/%Y")
+  .visible-xs
+    = render "mobile_items"
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600= t('product')
+          %th.col-method
+          %th
+            %span.in-grey-600= t('price')
+          %th
+            %span.in-grey-600= t('quantity')
+          %th
+            %span.in-grey-600= t('total')
+      %tbody
+        = render "items"
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render "summary"
+  .text-center
+    = link_to t('go_shop'), main_app.category_path(1), class: "btn btn-default mb-20"

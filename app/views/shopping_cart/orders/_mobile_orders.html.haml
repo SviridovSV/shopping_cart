@@ -1,0 +1,23 @@
+- @orders.each do |order|
+  .general-cart-item.divider-lg-bottom.pt-0
+    %table.table
+      %tr
+        %td.col-half
+          %span.in-grey-600= t('number')
+        %td.col-half
+          %span.general-order-number= link_to track_number(order), order_path(order), class: 'in-gold-500'
+      %tr
+        %td
+          %span.in-grey-600= t('number')
+        %td
+          %span.in-grey-900.font-16.font-weight-light= order.created_at.strftime("%Y-%m-%d")
+      %tr
+        %td
+          %span.in-grey-600= t('status')
+        %td
+          %span.font-16.in-grey-900.font-weight-light= order_state_title(order.state)
+      %tr
+        %td
+          %span.in-grey-600= t('total')
+        %td
+          %strong.font-16= shifting_price_to_currency(order.total_price)
