@@ -9,17 +9,17 @@ module ShoppingCart
     def set_current_step
       return if @params[:done]
       @steps.reverse.each do |stp|
-        @step = stp unless has_completed?(stp)
+        @step = stp unless completed?(stp)
       end
       @step
     end
 
     private
 
-    def has_completed?(step)
+    def completed?(step)
       case step
       when :address
-        @order.get_address("billing").try(:persisted?)
+        @order.get_address('billing').try(:persisted?)
       when :delivery
         @order.delivery_id?
       when :payment

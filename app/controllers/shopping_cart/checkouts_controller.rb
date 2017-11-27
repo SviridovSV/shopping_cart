@@ -1,6 +1,5 @@
 module ShoppingCart
   class CheckoutsController < ApplicationController
-
     include Wicked::Wizard
     include GettingAddress
 

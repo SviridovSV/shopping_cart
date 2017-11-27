@@ -25,7 +25,7 @@ module ShoppingCart
 
     def create_addresses
       @order.addresses.new(billing_address_params)
-      @order.addresses.new(shipping_address_params) unless @params[:billing][:address_type] == "both"
+      @order.addresses.new(shipping_address_params) unless @params[:billing][:address_type] == 'both'
     end
 
     def update_addresses

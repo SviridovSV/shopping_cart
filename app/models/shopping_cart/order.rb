@@ -12,8 +12,8 @@ module ShoppingCart
     belongs_to :delivery, optional: true, class_name: ShoppingCart::Delivery.name
     belongs_to :credit_card, optional: true, class_name: ShoppingCart::CreditCard.name
 
-    SORT_TITLES = {all: 'All', in_progress: 'In Progress', in_queue: 'Waiting for processing',
-                   in_delivery: 'In Delivery', delivered: 'Delivered', canceled: 'Canceled'}.freeze
+    SORT_TITLES = { all: 'All', in_progress: 'In Progress', in_queue: 'Waiting for processing',
+                   in_delivery: 'In Delivery', delivered: 'Delivered', canceled: 'Canceled' }.freeze
 
     default_scope { order(created_at: :desc) }
     scope :in_progress, -> { where(state: :in_progress) }

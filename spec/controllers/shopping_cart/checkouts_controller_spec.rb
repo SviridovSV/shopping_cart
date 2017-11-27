@@ -16,66 +16,66 @@ module ShoppingCart
     describe 'GET #show' do
       before { allow(controller).to receive(:jump_to) }
 
-      context "when step is address" do
+      context 'when step is address' do
         before { get :show, params: { id: :address } }
 
-        it "assigns the current order to :order" do
+        it 'assigns the current order to :order' do
           expect(assigns(:order)).to eq order
         end
 
-        it "assigns :address to step" do
+        it 'assigns :address to step' do
           expect(assigns(:step)).to eq(:address)
         end
 
-        it "renders the :address template" do
+        it 'renders the :address template' do
           expect(response).to render_template :address
         end
       end
 
-      context "when step is delivery" do
+      context 'when step is delivery' do
         before { get :show, params: { id: :delivery } }
 
-        it "assigns :delivery to step" do
+        it 'assigns :delivery to step' do
           expect(assigns(:step)).to eq(:delivery)
         end
 
-        it "renders the :delivery template" do
+        it 'renders the :delivery template' do
           expect(response).to render_template :delivery
         end
       end
 
-      context "when step is payment" do
+      context 'when step is payment' do
         before { get :show, params: { id: :payment } }
 
-        it "assigns :payment to step" do
+        it 'assigns :payment to step' do
           expect(assigns(:step)).to eq(:payment)
         end
 
-        it "renders the :payment template" do
+        it 'renders the :payment template' do
           expect(response).to render_template :payment
         end
       end
 
-      context "when step is confirm" do
+      context 'when step is confirm' do
         before { get :show, params: { id: :confirm } }
 
-        it "assigns :confirm to step" do
+        it 'assigns :confirm to step' do
           expect(assigns(:step)).to eq(:confirm)
         end
 
-        it "renders the :confirm template" do
+        it 'renders the :confirm template' do
           expect(response).to render_template :confirm
         end
       end
 
-      context "when step is complete" do
+      context 'when step is complete' do
         before { get :show, params: { id: :complete } }
 
-        it "clear session order_id" do
+        it 'clear session order_id' do
           expect(session[:order_id]).to be_nil
         end
 
-        it "assigns :complete to step" do
+        it 'assigns :complete to step' do
           expect(assigns(:step)).to eq(:complete)
         end
 

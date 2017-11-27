@@ -14,5 +14,9 @@ module ShoppingCart
               format: { with: /\A[0-9]+\z/, message: 'only allows numbers' }, allow_blank: :user_id?
     validates :phone, length: { maximum: 15 },
               format: { with: /\A^\+[0-9]+\z/, message: 'should starts with +' }, allow_blank: :user_id?
+
+    def address_type_both?
+      address_type == 'both'
+    end
   end
 end
